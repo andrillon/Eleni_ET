@@ -1,0 +1,56 @@
+%% Model Script to analyse Anti-Saccade Eye-Link data
+% author: thomas.andrillon@monash.edu
+clear all
+close all
+
+run localdef.m
+
+addpath(genpath(lscpTools_path));
+addpath(edf2mat_path);
+
+files=dir([eyet_path filesep '*' filesep '*Acq_clean.mat']);
+
+%% Loop on files
+window=[-1000 7000]; %3.4 image alone 2.6 liquid+image
+redo=1;
+all_CSminus_trials=[];
+all_CSplus_trials=[];
+for n=1:length(files)
+    subID=files(n).name(12:16);
+%     savename=['kavialotis_' subID];
+    
+    % load clean data for subID
+    load([files(n).folder filesep savename '_clean']); %,'EL_headers','EL_data','EL_events');
+    
+    % find timing of image presentation
+    event_types = EL_events.Events.type';
+    event_samples = EL_events.Events.time';
+    event_CSminus_idx = match_str(event_types,'CSminus');
+    event_CSplus_idx = match_str(event_types,'CSplus');
+    event_CSminus_samples = event_samples(event_CSminus_idx);
+    event_CSplus_samples = event_samples(event_CSplus_idx);
+    
+    % epoch around image presentation
+    CSminus_trials=[];
+    for k=1:length(event_CSminus_samples)
+        temp_trialonset = find(EL_data.time==event_CSminus_samples(k));
+        temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
+        % substract the baseline
+        temp_trial=temp_trial-mean(temp_trial(1:1000));
+        CSminus_trials=[CSminus_trials ; temp_trial];
+    end
+    
+    CSplus_trials=[];
+    for k=1:length(event_CSplus_samples)
+        temp_trialonset = find(EL_data.time==event_CSplus_samples(k));
+        temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
+        % substract the baseline
+        temp_trial=temp_trial-mean(temp_trial(1:1000));
+        CSplus_trials=[CSplus_trials ; temp_trial];
+    end
+    
+    all_CSminus_trials=[all_CSminus_trials ; mean(CSminus_trials)];
+    all_CSplus_trials=[all_CSplus_trials ; mean(CSplus_trials)];
+end
+
+%%
