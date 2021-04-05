@@ -14,7 +14,7 @@ files=dir([eyet_path filesep '*' filesep '*.edf']);
 redo=1;
 for n=1:length(files)
     subID=files(n).name(1:end-4);
-    savename=['kavialotis_' subID];
+    savename=['Kavaliotis_' subID];
     
     if exist([files(n).folder filesep savename '.mat'])==0 || redo==1
         fprintf('... converting %s from EDF to .mat file\n',subID)
