@@ -14,6 +14,7 @@ files_A=dir([eyet_path filesep '*' filesep '*Acq_clean.mat']);
 % Epoching data for the ACQUISITION SESSION
 
 window=[-1000 7000]; %3.4 image alone 2.6 liquid+image
+windowtimes=(window(1):window(2))/1000;
 redo=1;
 
 all_CSminus_trials_A=[];
@@ -37,11 +38,15 @@ all_CSplus_trials_A4=[];
 all_CSminus_trials_A5=[];
 all_CSplus_trials_A5=[];
 
+all_Names=[];
+
+all_CSminus_avValues=[];
+all_CSplus_avValues=[];
 
 for n=1:length(files_A)
     subID=files_A(n).name(12:15);
     savename=files_A(n).name;
-    
+    all_Names=[all_Names {subID}];
     % load clean data for subID
     load([files_A(n).folder filesep savename]); %,'EL_headers','EL_data','EL_events');
     
@@ -209,19 +214,50 @@ for n=1:length(files_A)
     
     all_CSminus_trials_A5=[all_CSminus_trials_A5 ; nanmean(CSminus_trials_A5)];
     all_CSplus_trials_A5=[all_CSplus_trials_A5 ; nanmean(CSplus_trials_A5)];
+    
+    all_CSminus_avValues=[all_CSminus_avValues ; [str2num(subID(2:end))*ones(size(CSminus_trials_A,1),1) (1:size(CSplus_trials_A,1))' [max(CSminus_trials_A(:,windowtimes>0 & windowtimes<3.4),[],2)  median(CSminus_trials_A(:,windowtimes>0 & windowtimes<3.4),2) mean(CSminus_trials_A(:,windowtimes>0 & windowtimes<3.4),2) ...
+        max(CSminus_trials_A(:,windowtimes>3.4 & windowtimes<3.4+2.6),[],2)  median(CSminus_trials_A(:,windowtimes>3.4 & windowtimes<3.4+2.6),2) mean(CSminus_trials_A(:,windowtimes>3.4 & windowtimes<3.4+2.6),2)]]];
+
+    all_CSplus_avValues=[all_CSplus_avValues ; [str2num(subID(2:end))*ones(size(CSplus_trials_A,1),1) (1:size(CSplus_trials_A,1))'  [max(CSplus_trials_A(:,windowtimes>0 & windowtimes<3.4),[],2)  median(CSplus_trials_A(:,windowtimes>0 & windowtimes<3.4),2) mean(CSplus_trials_A(:,windowtimes>0 & windowtimes<3.4),2) ...
+        max(CSplus_trials_A(:,windowtimes>3.4 & windowtimes<3.4+2.6),[],2)  median(CSplus_trials_A(:,windowtimes>3.4 & windowtimes<3.4+2.6),2) mean(CSplus_trials_A(:,windowtimes>3.4 & windowtimes<3.4+2.6),2)]]];
 end
 
+
+%%
+all_CSplus_avValues_table=array2table(all_CSplus_avValues,'VariableNames',{'SubID','TrialNumber','Max_WindowImage','Median_WindowImage','Mean_WindowImage',...
+    'Max_WindowImageLiquid','Median_WindowImageLiquid','Mean_WindowImageLiquid'});
 %%
 %%% Average of ALL trials
 figure(8); 
-plot(-1000:7000,mean(all_CSminus_trials_A));
+% plot(-1000:7000,mean(all_CSminus_trials_A));
+simpleTplot(-1000:7000,all_CSminus_trials_A,0,'b',0,'-',0.5,1,0,1,3);
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_A));
+% plot(-1000:7000,mean(all_CSplus_trials_A));
+simpleTplot(-1000:7000,all_CSplus_trials_A,0,'r',0,'-',0.5,1,0,1,3);
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 format_fig;
 xlim([-1000 7000])
+
+figure; format_fig;
+plot(-1000:7000,all_CSminus_trials_A');
+legend(all_Names);
+
+figure; format_fig;
+plot(-1000:7000,all_CSplus_trials_A');
+legend(all_Names);
+
+%% Average across subjects for trail numbers
+figure;
+uniqueSubIDs=unique(all_CSminus_avValues(:,1));
+for k=1:length(uniqueSubIDs)
+subplot(1,length(uniqueSubIDs),k);
+hold on;
+plot(1:30,grpstats(all_CSminus_avValues(all_CSminus_avValues(:,1)==uniqueSubIDs(k),5),all_CSminus_avValues(all_CSminus_avValues(:,1)==uniqueSubIDs(k),2)))
+
+plot(1:30,grpstats(all_CSminus_avValues(all_CSminus_avValues(:,1)==uniqueSubIDs(k),8),all_CSminus_avValues(all_CSminus_avValues(:,1)==uniqueSubIDs(k),2)))
+end
 %%
 %%% Comparing first and last 5 trials 
 figure(7); 
