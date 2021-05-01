@@ -468,9 +468,7 @@ xlabel('Trials')
 ylabel('Pupil size')
 format_fig;
 
-%TRIAL BY TRIAL FOR OVERALL SCORES FOR MEDIAN, MAX AND MEAN for split of
-%image alone and with liquiD:
-%MEAN 
+%MEAN for split of image alone and with liquid
 figure(1007);
 plot(1:30,grpstats(all_CSminus_avValues(all_CSminus_avValues(:,1)==uniqueSubIDs(k),5),all_CSminus_avValues(all_CSminus_avValues(:,1)==uniqueSubIDs(k),2)))
 hold on
