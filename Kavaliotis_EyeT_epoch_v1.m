@@ -262,6 +262,7 @@ xlabel('Time (s)')
 ylabel('Pupil size')
 format_fig;
 xlim([-1000 7000])
+ylim([0 300])
 
 %%%% Plot average of all trials + the SEM for CSplus and minus in the same
 %%%% and seperate graphs
@@ -302,14 +303,14 @@ plot(-1000:7000,all_CSminus_trials_A');
 title('CS- Trials')
 legend(all_Names);
 xlim([-1000 7000])
-%ylim([0 400])
+ylim([-100 400])
 
 figure(406); format_fig;
 plot(-1000:7000,all_CSplus_trials_A');
 title('CS+ Trials')
 legend(all_Names);
 xlim([-1000 7000])
-%ylim([0 400])
+ylim([-100 400])
 
 %% SECTION 5: Average across subjects for trial numbers
 
@@ -327,6 +328,7 @@ plot(1:30,grpstats(all_CSminus_avValues(all_CSminus_avValues(:,1)==uniqueSubIDs(
 plot(1:30,grpstats(all_CSminus_avValues(all_CSminus_avValues(:,1)==uniqueSubIDs(k),8),all_CSminus_avValues(all_CSminus_avValues(:,1)==uniqueSubIDs(k),2))) %%Mean value for image+liquid in CS- trials 
 title(k)
 legend({'CS-alone','CS-with liquid'})
+ylim([0 600])
 end
 
 %Splitting mean pupil size at each trial between image alone and with liquid and by
@@ -340,6 +342,7 @@ plot(1:30,grpstats(all_CSplus_avValues(all_CSplus_avValues(:,1)==uniqueSubIDs(k)
 plot(1:30,grpstats(all_CSplus_avValues(all_CSplus_avValues(:,1)==uniqueSubIDs(k),8),all_CSplus_avValues(all_CSplus_avValues(:,1)==uniqueSubIDs(k),2))) %%Mean value for image+liquid in CS+ trials 
 title(k)
 legend({'CS+alone','CS+with liquid'})
+ylim([0 600])
 end
 
 %Splitting mean pupil size at each trial by each CS type and by participant
@@ -352,6 +355,7 @@ plot(1:30,grpstats(all_CSminus_avValues_A(all_CSminus_avValues_A(:,1)==uniqueSub
 hold on;
 plot(1:30,grpstats(all_CSplus_avValues_A(all_CSplus_avValues_A(:,1)==uniqueSubIDs_A(k),5),all_CSplus_avValues_A(all_CSplus_avValues_A(:,1)==uniqueSubIDs_A(k),2)))% Mean value (e.g., column 5) for entire CS+ presentation
 title(k)
+ylim([0 600])
 end
 
 %With more detail to graph, same as above:
@@ -367,6 +371,7 @@ legend({'CS-','CS+'})
 xlabel('Trials')
 ylabel('Pupil size')
 format_fig;
+ylim([0 600])
 end
 
 %Splitting max pupil size at each trial by each CS type and by participant
@@ -545,6 +550,7 @@ ylabel('Pupil size')
 title('A1 - Trials 1-5')
 format_fig;
 xlim([-1000 7000])
+ylim([0 400])
 
 subplot(1,2,2);
 plot(-1000:7000,mean(all_CSminus_trials_A6));
@@ -556,6 +562,7 @@ ylabel('Pupil size')
 title('A6 - Trials 26-30')
 format_fig;
 xlim([-1000 7000])
+ylim([0 400])
 
 %%
 %%% SECTION 7: Average of each section of trials
@@ -986,6 +993,7 @@ ylabel('Pupil size')
 format_fig;
 xlim([-1000 7000])
 
+
 %%%% Plot average of all trials + the SEM for CSplus and minus in the same
 %%%% and seperate graphs
 figure(1102); 
@@ -1023,13 +1031,14 @@ xlim([-1000 7000])
 figure(1105); format_fig;
 plot(-1000:7000,all_CSminus_trials_E');
 title('CS- Trials')
-legend(all_Names);
+legend(all_Names, 'Location','northwest');
+ylim([-200 350])
 
 figure(1106); format_fig;
 plot(-1000:7000,all_CSplus_trials_E');
 title('CS+ Trials')
-legend(all_Names);
-
+legend(all_Names, 'Location','northwest');
+ylim([-200 350])
 
 
 
@@ -1049,7 +1058,7 @@ plot(1:30,grpstats(all_CSminus_avValuesE(all_CSminus_avValuesE(:,1)==uniqueSubID
 plot(1:30,grpstats(all_CSminus_avValuesE(all_CSminus_avValuesE(:,1)==uniqueSubIDsE(k),8),all_CSminus_avValuesE(all_CSminus_avValuesE(:,1)==uniqueSubIDsE(k),2))) %%Mean value for image+liquid in CS- trials 
 title(k)
 legend({'CS-alone','CS-with liquid'})
-ylim([0 550])
+ylim([-800 800])
 end
 
 %Splitting mean pupil size at each trial between image alone and with liquid and by
@@ -1063,6 +1072,7 @@ plot(1:30,grpstats(all_CSplus_avValuesE(all_CSplus_avValuesE(:,1)==uniqueSubIDsE
 plot(1:30,grpstats(all_CSplus_avValuesE(all_CSplus_avValuesE(:,1)==uniqueSubIDsE(k),8),all_CSplus_avValuesE(all_CSplus_avValuesE(:,1)==uniqueSubIDsE(k),2))) %%Mean value for image+liquid in CS+ trials 
 title(k)
 legend({'CS+alone','CS+with liquid'})
+ylim([-500 800])
 end
 
 %Splitting mean pupil size at each trial by each CS type and by participant
@@ -1089,7 +1099,7 @@ title(k)
 legend({'CS-','CS+'})
 xlabel('Trials')
 ylabel('Pupil size')
-ylim([-100 500])
+ylim([-400 800])
 format_fig;
 end
 
@@ -1269,6 +1279,7 @@ ylabel('Pupil size')
 title('E1 - Trials 1-5')
 format_fig;
 xlim([-1000 7000])
+ylim([-100 350])
 
 subplot(1,2,2);
 plot(-1000:7000,mean(all_CSminus_trials_E6));
@@ -1280,6 +1291,7 @@ ylabel('Pupil size')
 title('E6 - Trials 26-30')
 format_fig;
 xlim([-1000 7000])
+ylim([-100 350])
 %%
 %%% SECTION 14: Average of each section of trials
 
