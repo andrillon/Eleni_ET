@@ -302,7 +302,7 @@ end
 %% SECTION 4: Plotting average pupil size 
 
 %%% Plot average of ALL trials in the same graph
-figure(4011111); 
+figure(401); 
 plot(-1000:7000,mean(all_CSminus_trials_A));
 hold on;
 plot(-1000:7000,mean(all_CSplus_trials_A));
@@ -1441,7 +1441,8 @@ title('E8 - Trials 36-40')
 format_fig;
 xlim([-1000 7000])
 ylim([-100 350])
-%% SECTION 14: Average of each section of trials
+%%
+%%% SECTION 14: Average of each section of trials
 
 figure (1401); 
 plot(-1000:7000,mean(all_CSminus_trials_E1));
