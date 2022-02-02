@@ -13,7 +13,7 @@ files_A=dir([eyet_path filesep '*' filesep '*Acq_clean.mat']);
 
 %% SECTION 2: Epoching data for the ACQUISITION SESSION
 
-window=[-1000 7000]; %2.4 image alone 3.6 liquid+image
+window=[-1000 10000]; %2.4 image alone 3.6 liquid+image
 windowtimes=(window(1):window(2))/1000;
 redo=1;
 
@@ -69,7 +69,7 @@ for n=1:length(files_A)
     
     % Epoch around image presentation for ALL TRIALS
     CSminus_trials_A=[];
-    for k=1:length(event_CSminus_samples)
+    for k=1:length(event_CSminus_samples)-1
         temp_trialonset = find(EL_data.time==event_CSminus_samples(k));
         temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
         % substract the baseline
@@ -78,7 +78,7 @@ for n=1:length(files_A)
     end
     
     CSplus_trials_A=[];
-    for k=1:length(event_CSplus_samples)
+    for k=1:length(event_CSplus_samples)-1
         temp_trialonset = find(EL_data.time==event_CSplus_samples(k));
         temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
         % substract the baseline
@@ -145,7 +145,7 @@ for n=1:length(files_A)
         CSplus_trials_A3=[CSplus_trials_A3 ; temp_trial];
     end
     
-     %%%% Trials 16 - 20
+    %%%% Trials 16 - 20
     
     CSminus_trials_A4=[];
     for k=16:20
@@ -164,7 +164,7 @@ for n=1:length(files_A)
         temp_trial=temp_trial-nanmean(temp_trial(1:1000));
         CSplus_trials_A4=[CSplus_trials_A4 ; temp_trial];
     end
-      %%%% Trials 21 - 25
+    %%%% Trials 21 - 25
     
     CSminus_trials_A5=[];
     for k=21:25
@@ -183,10 +183,10 @@ for n=1:length(files_A)
         temp_trial=temp_trial-nanmean(temp_trial(1:1000));
         CSplus_trials_A5=[CSplus_trials_A5 ; temp_trial];
     end
-         
+    
     %%%% Trials 26 - 30
     CSminus_trials_A6=[];
-    for k=26:30 %length(event_CSminus_samples)
+    for k=26:29 %length(event_CSminus_samples)
         temp_trialonset = find(EL_data.time==event_CSminus_samples(k));
         temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
         % substract the baseline
@@ -195,7 +195,7 @@ for n=1:length(files_A)
     end
     
     CSplus_trials_A6=[];
-    for k=26:30 %length(event_CSplus_samples)
+    for k=26:29 %length(event_CSplus_samples)
         temp_trialonset = find(EL_data.time==event_CSplus_samples(k));
         temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
         % substract the baseline
@@ -203,42 +203,44 @@ for n=1:length(files_A)
         CSplus_trials_A6=[CSplus_trials_A6 ; temp_trial];
     end
     
-    %%%% Trials 31 - 35
-    CSminus_trials_A7=[];
-    for k=31:35 %length(event_CSminus_samples)
-        temp_trialonset = find(EL_data.time==event_CSminus_samples(k));
-        temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
-        % substract the baseline
-        temp_trial=temp_trial-mean(temp_trial(1:1000));
-        CSminus_trials_A7=[CSminus_trials_A7 ; temp_trial];
-    end
-    
-    CSplus_trials_A7=[];
-    for k=31:35 %length(event_CSplus_samples)
-        temp_trialonset = find(EL_data.time==event_CSplus_samples(k));
-        temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
-        % substract the baseline
-        temp_trial=temp_trial-nanmean(temp_trial(1:1000));
-        CSplus_trials_A7=[CSplus_trials_A7 ; temp_trial];
-    end
-    
-    %%%% Trials 36 - 40
-    CSminus_trials_A8=[];
-    for k=36:40 %length(event_CSminus_samples)
-        temp_trialonset = find(EL_data.time==event_CSminus_samples(k));
-        temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
-        % substract the baseline
-        temp_trial=temp_trial-mean(temp_trial(1:1000));
-        CSminus_trials_A8=[CSminus_trials_A8 ; temp_trial];
-    end
-    
-    CSplus_trials_A8=[];
-    for k=36:40 %length(event_CSplus_samples)
-        temp_trialonset = find(EL_data.time==event_CSplus_samples(k));
-        temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
-        % substract the baseline
-        temp_trial=temp_trial-nanmean(temp_trial(1:1000));
-        CSplus_trials_A8=[CSplus_trials_A8 ; temp_trial];
+    if length(event_CSminus_samples)>30
+        %%%% Trials 31 - 35
+        CSminus_trials_A7=[];
+        for k=31:35 %length(event_CSminus_samples)
+            temp_trialonset = find(EL_data.time==event_CSminus_samples(k));
+            temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
+            % substract the baseline
+            temp_trial=temp_trial-mean(temp_trial(1:1000));
+            CSminus_trials_A7=[CSminus_trials_A7 ; temp_trial];
+        end
+        
+        CSplus_trials_A7=[];
+        for k=31:35 %length(event_CSplus_samples)
+            temp_trialonset = find(EL_data.time==event_CSplus_samples(k));
+            temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
+            % substract the baseline
+            temp_trial=temp_trial-nanmean(temp_trial(1:1000));
+            CSplus_trials_A7=[CSplus_trials_A7 ; temp_trial];
+        end
+        
+        %%%% Trials 36 - 40
+        CSminus_trials_A8=[];
+        for k=36:40 %length(event_CSminus_samples)
+            temp_trialonset = find(EL_data.time==event_CSminus_samples(k));
+            temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
+            % substract the baseline
+            temp_trial=temp_trial-mean(temp_trial(1:1000));
+            CSminus_trials_A8=[CSminus_trials_A8 ; temp_trial];
+        end
+        
+        CSplus_trials_A8=[];
+        for k=36:40 %length(event_CSplus_samples)
+            temp_trialonset = find(EL_data.time==event_CSplus_samples(k));
+            temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
+            % substract the baseline
+            temp_trial=temp_trial-nanmean(temp_trial(1:1000));
+            CSplus_trials_A8=[CSplus_trials_A8 ; temp_trial];
+        end
     end
     
     all_CSminus_trials_A=[all_CSminus_trials_A ; nanmean(CSminus_trials_A)];
@@ -262,12 +264,13 @@ for n=1:length(files_A)
     all_CSminus_trials_A6=[all_CSminus_trials_A6 ; nanmean(CSminus_trials_A6)];
     all_CSplus_trials_A6=[all_CSplus_trials_A6 ; nanmean(CSplus_trials_A6)];
   
-    all_CSminus_trials_A7=[all_CSminus_trials_A7 ; nanmean(CSminus_trials_A7)];
+        if length(event_CSminus_samples)>30
+all_CSminus_trials_A7=[all_CSminus_trials_A7 ; nanmean(CSminus_trials_A7)];
     all_CSplus_trials_A7=[all_CSplus_trials_A7 ; nanmean(CSplus_trials_A7)];
    
     all_CSminus_trials_A8=[all_CSminus_trials_A8 ; nanmean(CSminus_trials_A8)];
     all_CSplus_trials_A8=[all_CSplus_trials_A8 ; nanmean(CSplus_trials_A8)];
-
+        end
     % This avValues is split between image alone and image+liquid.
     
     all_CSminus_avValues=[all_CSminus_avValues ; [str2num(subID(2:end))*ones(size(CSminus_trials_A,1),1) (1:size(CSminus_trials_A,1))' [max(CSminus_trials_A(:,windowtimes>0 & windowtimes<2.4),[],2)  median(CSminus_trials_A(:,windowtimes>0 & windowtimes<2.4),2) mean(CSminus_trials_A(:,windowtimes>0 & windowtimes<2.4),2) ...
@@ -299,66 +302,67 @@ for n=1:length(files_A)
     all_CSplus_avValues_A_table=array2table(all_CSplus_avValues_A,'VariableNames',{'SubID','TrialNumber','Max_Window','Median_Window','Mean_Window'});
 end 
 
+pause;
 %% SECTION 4: Plotting average pupil size 
 
 %%% Plot average of ALL trials in the same graph
 figure(4011111); 
-plot(-1000:7000,mean(all_CSminus_trials_A));
+plot(-1000:10000,mean(all_CSminus_trials_A));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_A));
+plot(-1000:10000,mean(all_CSplus_trials_A));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 300])
 
 %%%% Plot average of all trials + the SEM for CSplus and minus in the same
 %%%% and seperate graphs
 figure(402); 
-simpleTplot(-1000:7000,all_CSminus_trials_A,0,'b',0,'-',0.5,1,0,1,3);
+simpleTplot(-1000:10000,all_CSminus_trials_A,0,'b',0,'-',0.5,1,0,1,3);
 legend({'SEM','CS-'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('CS-')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 
 figure(403); 
-simpleTplot(-1000:7000,all_CSplus_trials_A,0,'r',0,'-',0.5,1,0,1,3);
+simpleTplot(-1000:10000,all_CSplus_trials_A,0,'r',0,'-',0.5,1,0,1,3);
 legend({'SEM','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('CS+')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 
 figure (404);
-simpleTplot(-1000:7000,all_CSminus_trials_A,0,'b',0,'-',0.5,1,0,1,3);
+simpleTplot(-1000:10000,all_CSminus_trials_A,0,'b',0,'-',0.5,1,0,1,3);
 hold on ;
-simpleTplot(-1000:7000,all_CSplus_trials_A,0,'r',0,'-',0.5,1,0,1,3);
+simpleTplot(-1000:10000,all_CSplus_trials_A,0,'r',0,'-',0.5,1,0,1,3);
 legend({'CS- SEM','CS-','CS+ SEM', 'CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('Mean and SEM for CS+ and CS-')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 
 %%% Plot average of ALL trials for EACH participant in the same graph for
 %%% CS- and CS+ seperately
 
 figure(405); format_fig;
-plot(-1000:7000,all_CSminus_trials_A');
+plot(-1000:10000,all_CSminus_trials_A');
 title('CS- Trials')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([-100 400])
 
 figure(406); format_fig;
-plot(-1000:7000,all_CSplus_trials_A');
+plot(-1000:10000,all_CSplus_trials_A');
 title('CS+ Trials')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([-100 400])
 
 %% SECTION 5: Average across subjects for trial numbers
@@ -589,254 +593,254 @@ legend({'CS+alone','CS+image+liquid'})
 %% SECTION 6: Comparing first and last 5 trials 
 figure(601); 
 subplot(1,2,1);
-plot(-1000:7000,mean(all_CSminus_trials_A1));
+plot(-1000:10000,mean(all_CSminus_trials_A1));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_A1));
+plot(-1000:10000,mean(all_CSplus_trials_A1));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('A1 - Trials 1-5')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 400])
 
 subplot(1,2,2);
-plot(-1000:7000,mean(all_CSminus_trials_A8));
+plot(-1000:10000,mean(all_CSminus_trials_A8));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_A8));
+plot(-1000:10000,mean(all_CSplus_trials_A8));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('A8 - Trials 36-40')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 400])
 
 %% SECTION 7: Average of each section of trials + Plots
 
 %A1: 
 figure (701); 
-plot(-1000:7000,mean(all_CSminus_trials_A1));
+plot(-1000:10000,mean(all_CSminus_trials_A1));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_A1));
+plot(-1000:10000,mean(all_CSplus_trials_A1));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('A1 - Trials 1-5')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([-100 350])
 
 %For each pt average of A1 for each CS type on seperate graphs:
 
 figure(7011); format_fig;
-plot(-1000:7000,all_CSminus_trials_A1');
+plot(-1000:10000,all_CSminus_trials_A1');
 title('A1 - Trials 1-5 for CS-')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 figure(7012); format_fig;
-plot(-1000:7000,all_CSplus_trials_A1');
+plot(-1000:10000,all_CSplus_trials_A1');
 title('A1 - Trials 1-5 for CS+')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 %A2
 
 figure (702);
-plot(-1000:7000,mean(all_CSminus_trials_A2));
+plot(-1000:10000,mean(all_CSminus_trials_A2));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_A2));
+plot(-1000:10000,mean(all_CSplus_trials_A2));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('A2 - Trials 6-10')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure(7021); format_fig;
-plot(-1000:7000,all_CSminus_trials_A2');
+plot(-1000:10000,all_CSminus_trials_A2');
 title('A2 - Trials 6-10 for CS-')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 figure(7022); format_fig;
-plot(-1000:7000,all_CSplus_trials_A2');
+plot(-1000:10000,all_CSplus_trials_A2');
 title('A2 - Trials 6-10 for CS+')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 %A3:
 
 figure (703); 
-plot(-1000:7000,mean(all_CSminus_trials_A3));
+plot(-1000:10000,mean(all_CSminus_trials_A3));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_A3));
+plot(-1000:10000,mean(all_CSplus_trials_A3));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('A3 - Trials 11-15')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure(7031); format_fig;
-plot(-1000:7000,all_CSminus_trials_A3');
+plot(-1000:10000,all_CSminus_trials_A3');
 title('A3 - Trials 11-15 for CS-')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 figure(7032); format_fig;
-plot(-1000:7000,all_CSplus_trials_A3');
+plot(-1000:10000,all_CSplus_trials_A3');
 title('A3 - Trials 11-15 for CS+')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 %A4:
 
 figure (704);
-plot(-1000:7000,mean(all_CSminus_trials_A4));
+plot(-1000:10000,mean(all_CSminus_trials_A4));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_A4));
+plot(-1000:10000,mean(all_CSplus_trials_A4));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('A4 - Trials 16-20')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure(7041); format_fig;
-plot(-1000:7000,all_CSminus_trials_A4');
+plot(-1000:10000,all_CSminus_trials_A4');
 title('A4 - Trials 16-20 for CS-')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 figure(7042); format_fig;
-plot(-1000:7000,all_CSplus_trials_A4');
+plot(-1000:10000,all_CSplus_trials_A4');
 title('A4 - Trials 16-20 for CS+')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 %A5:
 
 figure (705);
-plot(-1000:7000,mean(all_CSminus_trials_A5));
+plot(-1000:10000,mean(all_CSminus_trials_A5));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_A5));
+plot(-1000:10000,mean(all_CSplus_trials_A5));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('A5 - Trials 21-25')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure(7051); format_fig;
-plot(-1000:7000,all_CSminus_trials_A5');
+plot(-1000:10000,all_CSminus_trials_A5');
 title('A5 - Trials 20-25 for CS-')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 figure(7052); format_fig;
-plot(-1000:7000,all_CSplus_trials_A5');
+plot(-1000:10000,all_CSplus_trials_A5');
 title('A5 - Trials 20-25 for CS+')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 %A6: 
 
 figure(706);
-plot(-1000:7000,mean(all_CSminus_trials_A6));
+plot(-1000:10000,mean(all_CSminus_trials_A6));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_A6));
+plot(-1000:10000,mean(all_CSplus_trials_A6));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('A6 - Trials 26-30')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure(7061); format_fig;
-plot(-1000:7000,all_CSminus_trials_A6');
+plot(-1000:10000,all_CSminus_trials_A6');
 title('A6 - Trials 26-30 for CS-')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 figure(7062); format_fig;
-plot(-1000:7000,all_CSplus_trials_A6');
+plot(-1000:10000,all_CSplus_trials_A6');
 title('A6 - Trials 26-30 for CS+')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 %A7:
 
 figure(707);
-plot(-1000:7000,mean(all_CSminus_trials_A7));
+plot(-1000:10000,mean(all_CSminus_trials_A7));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_A7));
+plot(-1000:10000,mean(all_CSplus_trials_A7));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('A7 - Trials 31-35')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure(7071); format_fig;
-plot(-1000:7000,all_CSminus_trials_A7');
+plot(-1000:10000,all_CSminus_trials_A7');
 title('A7 - Trials 31-35 for CS-')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 figure(7072); format_fig;
-plot(-1000:7000,all_CSplus_trials_A7');
+plot(-1000:10000,all_CSplus_trials_A7');
 title('A7 - Trials 31-35 for CS+')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 %A8:
 
 figure(708);
-plot(-1000:7000,mean(all_CSminus_trials_A8));
+plot(-1000:10000,mean(all_CSminus_trials_A8));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_A8));
+plot(-1000:10000,mean(all_CSplus_trials_A8));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('A8 - Trials 36-40')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure(7081); format_fig;
-plot(-1000:7000,all_CSminus_trials_A8');
+plot(-1000:10000,all_CSminus_trials_A8');
 title('A8 - Trials 36-40 for CS-')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 figure(7082); format_fig;
-plot(-1000:7000,all_CSplus_trials_A8');
+plot(-1000:10000,all_CSplus_trials_A8');
 title('A8 - Trials 36-40 for CS+')
 legend(all_Names);
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 600])
 
 %% SECTION 8: EXTINCTION DATA
@@ -845,7 +849,7 @@ files_E=dir([eyet_path filesep '*' filesep '*Ext_clean.mat']);
 
 %% SECTION 9: Epoching data for the EXTINCTION SESSION
 
-window=[-1000 7000]; %2.4 image alone 3.6 liquid+image
+window=[-1000 10000]; %2.4 image alone 3.6 liquid+image
 windowtimes=(window(1):window(2))/1000;
 redo=1;
 
@@ -1134,58 +1138,58 @@ end
 
 %% SECTION 11: Average of ALL trials
 figure(1101); 
-plot(-1000:7000,mean(all_CSminus_trials_E));
+plot(-1000:10000,mean(all_CSminus_trials_E));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_E));
+plot(-1000:10000,mean(all_CSplus_trials_E));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 
 
 %%%% Plot average of all trials + the SEM for CSplus and minus in the same
 %%%% and seperate graphs
 figure(1102); 
-simpleTplot(-1000:7000,all_CSminus_trials_E,0,'b',0,'-',0.5,1,0,1,3);
+simpleTplot(-1000:10000,all_CSminus_trials_E,0,'b',0,'-',0.5,1,0,1,3);
 legend({'SEM','CS-'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('CS-')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 
 figure(1103); 
-simpleTplot(-1000:7000,all_CSplus_trials_E,0,'r',0,'-',0.5,1,0,1,3);
+simpleTplot(-1000:10000,all_CSplus_trials_E,0,'r',0,'-',0.5,1,0,1,3);
 legend({'SEM','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('CS+')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 
 figure (1104);
-simpleTplot(-1000:7000,all_CSminus_trials_E,0,'b',0,'-',0.5,1,0,1,3);
+simpleTplot(-1000:10000,all_CSminus_trials_E,0,'b',0,'-',0.5,1,0,1,3);
 hold on ;
-simpleTplot(-1000:7000,all_CSplus_trials_E,0,'r',0,'-',0.5,1,0,1,3);
+simpleTplot(-1000:10000,all_CSplus_trials_E,0,'r',0,'-',0.5,1,0,1,3);
 legend({'CS- SEM','CS-','CS+ SEM', 'CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('Mean and SEM for CS+ and CS-')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 
 %%% Plot average of ALL trials for each participant in the same graph for
 %%% CS- and CS+ seperately
 
 figure(1105); format_fig;
-plot(-1000:7000,all_CSminus_trials_E');
+plot(-1000:10000,all_CSminus_trials_E');
 title('CS- Trials')
 legend(all_Names, 'Location','northwest');
 ylim([-200 350])
 
 figure(1106); format_fig;
-plot(-1000:7000,all_CSplus_trials_E');
+plot(-1000:10000,all_CSplus_trials_E');
 title('CS+ Trials')
 legend(all_Names, 'Location','northwest');
 ylim([-200 350])
@@ -1419,124 +1423,124 @@ legend ('CS+alone','CS+image+liquid')
 %% SECTION 13: Comparing first and last 5 trials 
 figure(1301); 
 subplot(1,2,1);
-plot(-1000:7000,mean(all_CSminus_trials_E1));
+plot(-1000:10000,mean(all_CSminus_trials_E1));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_E1));
+plot(-1000:10000,mean(all_CSplus_trials_E1));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('E1 - Trials 1-5')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([-100 350])
 
 subplot(1,2,2);
-plot(-1000:7000,mean(all_CSminus_trials_E8));
+plot(-1000:10000,mean(all_CSminus_trials_E8));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_E8));
+plot(-1000:10000,mean(all_CSplus_trials_E8));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('E8 - Trials 36-40')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([-100 350])
 %% SECTION 14: Average of each section of trials
 
 figure (1401); 
-plot(-1000:7000,mean(all_CSminus_trials_E1));
+plot(-1000:10000,mean(all_CSminus_trials_E1));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_E1));
+plot(-1000:10000,mean(all_CSplus_trials_E1));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('E1 - Trials 1-5')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure (1402);
-plot(-1000:7000,mean(all_CSminus_trials_E2));
+plot(-1000:10000,mean(all_CSminus_trials_E2));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_E2));
+plot(-1000:10000,mean(all_CSplus_trials_E2));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('E2 - Trials 6-10')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure (1403); 
-plot(-1000:7000,mean(all_CSminus_trials_E3));
+plot(-1000:10000,mean(all_CSminus_trials_E3));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_E3));
+plot(-1000:10000,mean(all_CSplus_trials_E3));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('E3 - Trials 11-15')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure (1404);
-plot(-1000:7000,mean(all_CSminus_trials_E4));
+plot(-1000:10000,mean(all_CSminus_trials_E4));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_E4));
+plot(-1000:10000,mean(all_CSplus_trials_E4));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('E4 - Trials 16-20')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure (1405);
-plot(-1000:7000,mean(all_CSminus_trials_E5));
+plot(-1000:10000,mean(all_CSminus_trials_E5));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_E5));
+plot(-1000:10000,mean(all_CSplus_trials_E5));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('E5 - Trials 21-25')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure(1406);
-plot(-1000:7000,mean(all_CSminus_trials_E6));
+plot(-1000:10000,mean(all_CSminus_trials_E6));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_E6));
+plot(-1000:10000,mean(all_CSplus_trials_E6));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('E6 - Trials 26-30')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure(1407);
-plot(-1000:7000,mean(all_CSminus_trials_E7));
+plot(-1000:10000,mean(all_CSminus_trials_E7));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_E7));
+plot(-1000:10000,mean(all_CSplus_trials_E7));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('E7 - Trials 31-35')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 figure(1408);
-plot(-1000:7000,mean(all_CSminus_trials_E8));
+plot(-1000:10000,mean(all_CSminus_trials_E8));
 hold on;
-plot(-1000:7000,mean(all_CSplus_trials_E8));
+plot(-1000:10000,mean(all_CSplus_trials_E8));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
 title('E8 - Trials 36-40')
 format_fig;
-xlim([-1000 7000])
+xlim([-1000 10000])
 ylim([0 350])
 
 %%
