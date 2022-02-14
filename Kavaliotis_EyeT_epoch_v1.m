@@ -69,7 +69,7 @@ for n=1:length(files_A)
     
     % Epoch around image presentation for ALL TRIALS
     CSminus_trials_A=[];
-    for k=1:length(event_CSminus_samples)-1
+    for k=1:length(event_CSminus_samples) %-1
         temp_trialonset = find(EL_data.time==event_CSminus_samples(k));
         temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
         % substract the baseline
@@ -78,7 +78,7 @@ for n=1:length(files_A)
     end
     
     CSplus_trials_A=[];
-    for k=1:length(event_CSplus_samples)-1
+    for k=1:length(event_CSplus_samples) %-1
         temp_trialonset = find(EL_data.time==event_CSplus_samples(k));
         temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
         % substract the baseline
@@ -186,7 +186,7 @@ for n=1:length(files_A)
     
     %%%% Trials 26 - 30
     CSminus_trials_A6=[];
-    for k=26:29 %length(event_CSminus_samples)
+    for k=26:30 %length(event_CSminus_samples)
         temp_trialonset = find(EL_data.time==event_CSminus_samples(k));
         temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
         % substract the baseline
@@ -195,7 +195,7 @@ for n=1:length(files_A)
     end
     
     CSplus_trials_A6=[];
-    for k=26:29 %length(event_CSplus_samples)
+    for k=26:30 %length(event_CSplus_samples)
         temp_trialonset = find(EL_data.time==event_CSplus_samples(k));
         temp_trial=EL_data.clean_pupilSize((temp_trialonset+window(1)):(temp_trialonset+window(2)),1)';
         % substract the baseline
@@ -265,7 +265,7 @@ for n=1:length(files_A)
     all_CSplus_trials_A6=[all_CSplus_trials_A6 ; nanmean(CSplus_trials_A6)];
   
         if length(event_CSminus_samples)>30
-all_CSminus_trials_A7=[all_CSminus_trials_A7 ; nanmean(CSminus_trials_A7)];
+    all_CSminus_trials_A7=[all_CSminus_trials_A7 ; nanmean(CSminus_trials_A7)];
     all_CSplus_trials_A7=[all_CSplus_trials_A7 ; nanmean(CSplus_trials_A7)];
    
     all_CSminus_trials_A8=[all_CSminus_trials_A8 ; nanmean(CSminus_trials_A8)];
@@ -306,7 +306,7 @@ pause;
 %% SECTION 4: Plotting average pupil size 
 
 %%% Plot average of ALL trials in the same graph
-figure(4011111); 
+figure(401); 
 plot(-1000:10000,mean(all_CSminus_trials_A));
 hold on;
 plot(-1000:10000,mean(all_CSplus_trials_A));
@@ -602,7 +602,7 @@ ylabel('Pupil size')
 title('A1 - Trials 1-5')
 format_fig;
 xlim([-1000 10000])
-ylim([0 400])
+ylim([-200 400])
 
 subplot(1,2,2);
 plot(-1000:10000,mean(all_CSminus_trials_A8));
@@ -614,8 +614,33 @@ ylabel('Pupil size')
 title('A8 - Trials 36-40')
 format_fig;
 xlim([-1000 10000])
-ylim([0 400])
+ylim([-200 400])
 
+%Comparing first 5 to trials 25-30 (similar to first pilot group)
+figure(602); 
+subplot(1,2,1);
+plot(-1000:10000,mean(all_CSminus_trials_A1));
+hold on;
+plot(-1000:10000,mean(all_CSplus_trials_A1));
+legend({'CS-','CS+'})
+xlabel('Time (s)')
+ylabel('Pupil size')
+title('A1 - Trials 1-5')
+format_fig;
+xlim([-1000 10000])
+ylim([-200 400])
+
+subplot(1,2,2);
+plot(-1000:10000,mean(all_CSminus_trials_A6));
+hold on;
+plot(-1000:10000,mean(all_CSplus_trials_A6));
+legend({'CS-','CS+'})
+xlabel('Time (s)')
+ylabel('Pupil size')
+title('A6 - Trials 25-30')
+format_fig;
+xlim([-1000 10000])
+ylim([-200 400])
 %% SECTION 7: Average of each section of trials + Plots
 
 %A1: 
