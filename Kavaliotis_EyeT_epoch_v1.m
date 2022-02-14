@@ -637,7 +637,7 @@ plot(-1000:10000,mean(all_CSplus_trials_A6));
 legend({'CS-','CS+'})
 xlabel('Time (s)')
 ylabel('Pupil size')
-title('A6 - Trials 25-30')
+title('A6 - Trials 26-30')
 format_fig;
 xlim([-1000 10000])
 ylim([-200 400])
@@ -1457,7 +1457,7 @@ ylabel('Pupil size')
 title('E1 - Trials 1-5')
 format_fig;
 xlim([-1000 10000])
-ylim([-100 350])
+ylim([-200 350])
 
 subplot(1,2,2);
 plot(-1000:10000,mean(all_CSminus_trials_E8));
@@ -1469,7 +1469,32 @@ ylabel('Pupil size')
 title('E8 - Trials 36-40')
 format_fig;
 xlim([-1000 10000])
-ylim([-100 350])
+ylim([-200 350])
+
+figure(1302); 
+subplot(1,2,1);
+plot(-1000:10000,mean(all_CSminus_trials_E1));
+hold on;
+plot(-1000:10000,mean(all_CSplus_trials_E1));
+legend({'CS-','CS+'})
+xlabel('Time (s)')
+ylabel('Pupil size')
+title('E1 - Trials 1-5')
+format_fig;
+xlim([-1000 10000])
+ylim([-200 350])
+
+subplot(1,2,2);
+plot(-1000:10000,mean(all_CSminus_trials_E6));
+hold on;
+plot(-1000:10000,mean(all_CSplus_trials_E6));
+legend({'CS-','CS+'})
+xlabel('Time (s)')
+ylabel('Pupil size')
+title('E6 - Trials 26-30')
+format_fig;
+xlim([-1000 10000])
+ylim([-200 350])
 %% SECTION 14: Average of each section of trials
 
 figure (1401); 
