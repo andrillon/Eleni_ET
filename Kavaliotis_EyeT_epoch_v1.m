@@ -52,6 +52,15 @@ all_CSplus_avValues=[];
 all_CSminus_avValues_A=[];
 all_CSplus_avValues_A=[];
 
+all_CSminus_avValues_B=[];
+all_CSplus_avValues_B=[];
+
+all_CSminus_avValues_B1=[];
+all_CSplus_avValues_B1=[];
+
+all_CSminus_avValues_B8=[];
+all_CSplus_avValues_B8=[];
+
 for n=1:length(files_A)
     subID=files_A(n).name(12:15);
     savename=files_A(n).name;
@@ -204,6 +213,7 @@ for n=1:length(files_A)
     end
     
     if length(event_CSminus_samples)>30
+        
         %%%% Trials 31 - 35
         CSminus_trials_A7=[];
         for k=31:35 %length(event_CSminus_samples)
@@ -271,7 +281,8 @@ for n=1:length(files_A)
     all_CSminus_trials_A8=[all_CSminus_trials_A8 ; nanmean(CSminus_trials_A8)];
     all_CSplus_trials_A8=[all_CSplus_trials_A8 ; nanmean(CSplus_trials_A8)];
         end
-    % This avValues is split between image alone and image+liquid.
+        
+     % This avValues is split between image alone and image+liquid.
     
     all_CSminus_avValues=[all_CSminus_avValues ; [str2num(subID(2:end))*ones(size(CSminus_trials_A,1),1) (1:size(CSminus_trials_A,1))' [max(CSminus_trials_A(:,windowtimes>0 & windowtimes<2.4),[],2)  median(CSminus_trials_A(:,windowtimes>0 & windowtimes<2.4),2) mean(CSminus_trials_A(:,windowtimes>0 & windowtimes<2.4),2) ...
         max(CSminus_trials_A(:,windowtimes>2.4 & windowtimes<2.4+3.6),[],2)  median(CSminus_trials_A(:,windowtimes>2.4 & windowtimes<2.4+3.6),2) mean(CSminus_trials_A(:,windowtimes>2.4 & windowtimes<2.4+3.6),2)]]];
@@ -284,6 +295,24 @@ for n=1:length(files_A)
     all_CSminus_avValues_A=[all_CSminus_avValues_A ; [str2num(subID(2:end))*ones(size(CSminus_trials_A,1),1) (1:size(CSminus_trials_A,1))' [max(CSminus_trials_A(:,windowtimes>0 & windowtimes<6.0),[],2)  median(CSminus_trials_A(:,windowtimes>0 & windowtimes<6.0),2) mean(CSminus_trials_A(:,windowtimes>0 & windowtimes<6.0),2)]]];
     
     all_CSplus_avValues_A=[all_CSplus_avValues_A ; [str2num(subID(2:end))*ones(size(CSplus_trials_A,1),1) (1:size(CSplus_trials_A,1))'  [max(CSplus_trials_A(:,windowtimes>0 & windowtimes<6.0),[],2)  median(CSplus_trials_A(:,windowtimes>0 & windowtimes<6.0),2) mean(CSplus_trials_A(:,windowtimes>0 & windowtimes<6.0),2)]]];    
+
+    % Inclusion of min values for entire CS presentation 
+    
+    all_CSminus_avValues_B=[all_CSminus_avValues_B ; [str2num(subID(2:end))*ones(size(CSminus_trials_A,1),1) (1:size(CSminus_trials_A,1))' [min(CSminus_trials_A(:,windowtimes>0 & windowtimes<10.0),[],2)  max(CSminus_trials_A(:,windowtimes>0 & windowtimes<10.0),[],2)  median(CSminus_trials_A(:,windowtimes>0 & windowtimes<10.0),2) mean(CSminus_trials_A(:,windowtimes>0 & windowtimes<10.0),2)]]];
+    
+    all_CSplus_avValues_B=[all_CSplus_avValues_B ; [str2num(subID(2:end))*ones(size(CSplus_trials_A,1),1) (1:size(CSplus_trials_A,1))'  [min(CSplus_trials_A(:,windowtimes>0 & windowtimes<10.0),[],2)  max(CSplus_trials_A(:,windowtimes>0 & windowtimes<10.0),[],2)  median(CSplus_trials_A(:,windowtimes>0 & windowtimes<10.0),2) mean(CSplus_trials_A(:,windowtimes>0 & windowtimes<10.0),2)]]];    
+
+    % Limiting to first 5 trials
+    
+    all_CSminus_avValues_B1=[all_CSminus_avValues_B1 ; [str2num(subID(2:end))*ones(size(CSminus_trials_A1,1),1) (1:size(CSminus_trials_A1,1))' [min(CSminus_trials_A1(:,windowtimes>0 & windowtimes<10.0),[],2)  max(CSminus_trials_A1(:,windowtimes>0 & windowtimes<10.0),[],2)  median(CSminus_trials_A1(:,windowtimes>0 & windowtimes<10.0),2) mean(CSminus_trials_A1(:,windowtimes>0 & windowtimes<10.0),2)]]];
+    
+    all_CSplus_avValues_B1=[all_CSplus_avValues_B1 ; [str2num(subID(2:end))*ones(size(CSplus_trials_A1,1),1) (1:size(CSplus_trials_A1,1))'  [min(CSplus_trials_A1(:,windowtimes>0 & windowtimes<10.0),[],2)  max(CSplus_trials_A1(:,windowtimes>0 & windowtimes<10.0),[],2)  median(CSplus_trials_A1(:,windowtimes>0 & windowtimes<10.0),2) mean(CSplus_trials_A1(:,windowtimes>0 & windowtimes<10.0),2)]]];    
+
+    % Limiting to last 5 trials
+    
+    all_CSminus_avValues_B8=[all_CSminus_avValues_B8 ; [str2num(subID(2:end))*ones(size(CSminus_trials_A8,1),1) (1:size(CSminus_trials_A8,1))' [min(CSminus_trials_A8(:,windowtimes>0 & windowtimes<10.0),[],2)  max(CSminus_trials_A8(:,windowtimes>0 & windowtimes<10.0),[],2)  median(CSminus_trials_A8(:,windowtimes>0 & windowtimes<10.0),2) mean(CSminus_trials_A8(:,windowtimes>0 & windowtimes<10.0),2)]]];
+    
+    all_CSplus_avValues_B8=[all_CSplus_avValues_B8 ; [str2num(subID(2:end))*ones(size(CSplus_trials_A8,1),1) (1:size(CSplus_trials_A8,1))'  [min(CSplus_trials_A8(:,windowtimes>0 & windowtimes<10.0),[],2)  max(CSplus_trials_A8(:,windowtimes>0 & windowtimes<10.0),[],2)  median(CSplus_trials_A8(:,windowtimes>0 & windowtimes<10.0),2) mean(CSplus_trials_A8(:,windowtimes>0 & windowtimes<10.0),2)]]];    
 
 end
 
@@ -300,6 +329,10 @@ for n=1:length(files_A)
     all_CSminus_avValues_A_table=array2table(all_CSminus_avValues_A,'VariableNames',{'SubID','TrialNumber','Max_Window','Median_Window','Mean_Window'});
 
     all_CSplus_avValues_A_table=array2table(all_CSplus_avValues_A,'VariableNames',{'SubID','TrialNumber','Max_Window','Median_Window','Mean_Window'});
+    
+    all_CSminus_avValues_B_table=array2table(all_CSminus_avValues_B,'VariableNames',{'SubID','TrialNumber','Min Window','Max_Window','Median_Window','Mean_Window'});
+
+    all_CSplus_avValues_B_table=array2table(all_CSplus_avValues_B,'VariableNames',{'SubID','TrialNumber','Min Window','Max_Window','Median_Window','Mean_Window'});
 end 
 
 pause;
