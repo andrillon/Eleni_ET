@@ -687,7 +687,7 @@ ylabel('Pupil size')
 title('A1 - Trials 1-5')
 format_fig;
 xlim([-1000 10000])
-ylim([-100 350])
+ylim([-200 350])
 
 %For each pt average of A1 for each CS type on seperate graphs:
 
@@ -717,7 +717,7 @@ ylabel('Pupil size')
 title('A2 - Trials 6-10')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure(7021); format_fig;
 plot(-1000:10000,all_CSminus_trials_A2');
@@ -745,7 +745,7 @@ ylabel('Pupil size')
 title('A3 - Trials 11-15')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure(7031); format_fig;
 plot(-1000:10000,all_CSminus_trials_A3');
@@ -773,7 +773,7 @@ ylabel('Pupil size')
 title('A4 - Trials 16-20')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure(7041); format_fig;
 plot(-1000:10000,all_CSminus_trials_A4');
@@ -801,7 +801,7 @@ ylabel('Pupil size')
 title('A5 - Trials 21-25')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure(7051); format_fig;
 plot(-1000:10000,all_CSminus_trials_A5');
@@ -829,7 +829,7 @@ ylabel('Pupil size')
 title('A6 - Trials 26-30')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure(7061); format_fig;
 plot(-1000:10000,all_CSminus_trials_A6');
@@ -843,7 +843,7 @@ plot(-1000:10000,all_CSplus_trials_A6');
 title('A6 - Trials 26-30 for CS+')
 legend(all_Names);
 xlim([-1000 10000])
-ylim([0 600])
+ylim([-200 600])
 
 %A7:
 
@@ -857,7 +857,7 @@ ylabel('Pupil size')
 title('A7 - Trials 31-35')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure(7071); format_fig;
 plot(-1000:10000,all_CSminus_trials_A7');
@@ -885,7 +885,7 @@ ylabel('Pupil size')
 title('A8 - Trials 36-40')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure(7081); format_fig;
 plot(-1000:10000,all_CSminus_trials_A8');
@@ -1540,7 +1540,7 @@ ylabel('Pupil size')
 title('E1 - Trials 1-5')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure (1402);
 plot(-1000:10000,mean(all_CSminus_trials_E2));
@@ -1552,7 +1552,7 @@ ylabel('Pupil size')
 title('E2 - Trials 6-10')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure (1403); 
 plot(-1000:10000,mean(all_CSminus_trials_E3));
@@ -1564,7 +1564,7 @@ ylabel('Pupil size')
 title('E3 - Trials 11-15')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure (1404);
 plot(-1000:10000,mean(all_CSminus_trials_E4));
@@ -1576,7 +1576,7 @@ ylabel('Pupil size')
 title('E4 - Trials 16-20')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure (1405);
 plot(-1000:10000,mean(all_CSminus_trials_E5));
@@ -1588,7 +1588,7 @@ ylabel('Pupil size')
 title('E5 - Trials 21-25')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure(1406);
 plot(-1000:10000,mean(all_CSminus_trials_E6));
@@ -1600,7 +1600,7 @@ ylabel('Pupil size')
 title('E6 - Trials 26-30')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure(1407);
 plot(-1000:10000,mean(all_CSminus_trials_E7));
@@ -1612,7 +1612,7 @@ ylabel('Pupil size')
 title('E7 - Trials 31-35')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 figure(1408);
 plot(-1000:10000,mean(all_CSminus_trials_E8));
@@ -1624,7 +1624,7 @@ ylabel('Pupil size')
 title('E8 - Trials 36-40')
 format_fig;
 xlim([-1000 10000])
-ylim([0 350])
+ylim([-200 350])
 
 %%
 
